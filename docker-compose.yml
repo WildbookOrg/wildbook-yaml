@@ -1,0 +1,21 @@
+nginx:
+  build: ./nginx
+  links:
+      - app-db
+      - andrew
+  ports:
+      - "80:80"
+
+andrew:  
+  build: ./web
+  ports:
+    - "8082:8080"
+  links:
+    - app-db
+
+app-db:  
+  build: ./db
+  expose:
+    - "5432"
+  volumes:
+    - /var/lib/postgresql/data
